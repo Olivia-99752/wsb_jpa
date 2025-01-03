@@ -1,13 +1,9 @@
 package com.jpacourse.persistence.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "VISIT")
@@ -16,6 +12,43 @@ public class VisitEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	//wiele do jednego, parent to patient
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "patient_id", referencedColumnName = "id")
+	private PatientEntity patient;
+
+	public DoctorEntity getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
+	}
+
+	public PatientEntity getPatient() {
+		return patient;
+	}
+
+	public void setPatient(PatientEntity patient) {
+		this.patient = patient;
+	}
+
+	//wiele do jednego, parent to doctor
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "doctor_id", referencedColumnName = "id")
+	private DoctorEntity doctor;
+
+	public List<MedicalTreatmentEntity> getMedicalTreatments() {
+		return MedicalTreatments;
+	}
+
+	public void setMedicalTreatments(List<MedicalTreatmentEntity> medicalTreatments) {
+		MedicalTreatments = medicalTreatments;
+	}
+
+	@OneToMany(mappedBy = "MedicalTreatment")
+	private List<MedicalTreatmentEntity> MedicalTreatments;
 
 	private String description;
 

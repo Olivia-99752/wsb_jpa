@@ -2,14 +2,7 @@ package com.jpacourse.persistence.entity;
 
 import com.jpacourse.persistence.enums.Specialization;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "DOCTOR")
@@ -18,6 +11,11 @@ public class DoctorEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	//Jeden do jeden, rodzic to doctor
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="adress_id", referencedColumnName = "id")
+	private AddressEntity address;
 
 	@Column(nullable = false)
 	private String firstName;
