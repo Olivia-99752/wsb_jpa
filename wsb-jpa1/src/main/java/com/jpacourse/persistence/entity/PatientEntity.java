@@ -52,7 +52,7 @@ public class PatientEntity {
 	private String patientNumber;
 
 	@Column(nullable = false)
-	private LocalDate dateOfBirth;
+	private LocalDate dateOfBirth; //yyyy-mm-dd
 
 	@Column(nullable = false)
 	private int weight;
